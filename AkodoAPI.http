@@ -1,0 +1,6 @@
+@AkodoAPI_HostAddress = http://localhost:5235
+
+GET {{AkodoAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
