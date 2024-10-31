@@ -7,9 +7,17 @@ namespace AkodoAPI.Controllers
     [ApiController]
     public class ErrorHandlerController : ControllerBase
     {
-        [HttpGet]
-        public ActionResult Index()
+        private readonly ILogger _logger;
+
+        public ErrorHandlerController(ILogger logger)
         {
+            _logger = logger;
+        }
+
+        [HttpGet]
+        public ActionResult Index(int id)
+        {
+            int x = 10 / id;
             return Ok();
         }
     }

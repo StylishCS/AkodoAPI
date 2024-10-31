@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace AkodoAPI.Models
 {
@@ -7,22 +8,26 @@ namespace AkodoAPI.Models
     public class User
     {
         public int Id { get; set; }
+        [RegularExpression("^(Student|Owner)$", ErrorMessage = "User Type Should Be One Of Those Options: Student, Owner")]
+        public string Type { get; set; }
+        [RegularExpression("^(Broker|Office|Owner)$", ErrorMessage = "User Type Should Be One Of Those Options: Broker, Office, Owner")]
+        public string? Subtype { get; set; }
         [MaxLength(40, ErrorMessage = "Name should be less than 40 characters")]
         public string Name { get; set; }
         [DataType(DataType.EmailAddress, ErrorMessage = "Please enter a valid email address")]
-        public string Email { get; set; }
+        public string? Email { get; set; }
         [DataType(DataType.Password)]
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$", ErrorMessage = "Password must contain at least one uppercase letter, one lowercase letter, one number, and be at least 8 characters long.")]
         public string Password { get; set; }
         [DataType(DataType.ImageUrl)]
-        public string Image { get; set; }
+        public string? Image { get; set; }
         [DataType(DataType.PhoneNumber, ErrorMessage = "Please enter a valid phone number")]
-        public string? MobilePhone { get; set; }
+        public string MobilePhone { get; set; }
         [DataType(DataType.PhoneNumber, ErrorMessage = "Please enter a valid phone number")]
         public string? WhatsappPhone { get; set; }
         [ForeignKey("University")]
-        public int? UniversityId { get; set; }
-        public University? University { get; set; }
+        public int UniversityId { get; set; }
+        public University University { get; set; }
         public UserFeedback? UserFeedback { get; set; }
         public string? OTP { get; set; }
         public bool IsDeleted { get; set; } = false;
